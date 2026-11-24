@@ -1,0 +1,2 @@
+Place-holder dossier imgcache.
+

@@ -1,0 +1,9 @@
+{
+  "name": "img-optimize",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "sharp": "^0.34.3"
+  }
+}
+
