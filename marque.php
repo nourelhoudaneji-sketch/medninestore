@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['retour_produits'] = $_SERVER['REQUEST_URI'];
 include 'includes/db.php';
 include 'includes/header.php';
 
@@ -64,7 +65,7 @@ $produits = $stmtP->fetchAll(PDO::FETCH_ASSOC);
             <p>Aucun produit pour cette marque.</p>
         <?php else: ?>
             <?php foreach ($produits as $p): ?>
-                <div class="produit-card">
+                <div class="produit-card" id="produit-<?= (int)$p['id'] ?>">
 <?php $imgName = $p['image'] ?? ''; ?>
 <?php if (!empty($imgName)): ?>
                     <div class="produit-image-wrap">

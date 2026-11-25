@@ -5,7 +5,13 @@ include 'includes/header.php';
 
 // Récupérer l'ID du produit depuis l'URL
 $produit_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-
+// Retour vers la page d'origine (marque.php, produits.php avec filtres, etc.)
+$retour = 'produits.php';
+$ref = $_SERVER['HTTP_REFERER'] ?? '';
+if ($ref && parse_url($ref, PHP_URL_HOST) === ($_SERVER['HTTP_HOST'] ?? '')) {
+    $retour = strtok($ref, '#'); // enlève une éventuelle ancre existante
+}
+$retour .= '#produit-' . $produit_id;
 $produit = null;
 if ($produit_id > 0) {
     $stmt = $conn->prepare(
@@ -53,7 +59,7 @@ if ($produit_id > 0) {
             <a href="ajouter_panier.php?id=<?= (int)$produit['id'] ?>" class="btn" style="margin-right:10px;">
                 🛒 Ajouter au panier
             </a>
-            <a href="produits.php" class="btn btn-outline">← Retour aux produits</a>
+           <a href="<?= htmlspecialchars($retour, ENT_QUOTES, 'UTF-8') ?>" class="btn btn-outline">← Retour aux produits</a>
         </div>
     </div>
 <?php else: ?>

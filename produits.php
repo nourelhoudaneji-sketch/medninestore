@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-
+$_SESSION['retour_produits'] = $_SERVER['REQUEST_URI'];
 include 'includes/db.php';
 include 'includes/header.php';
 
@@ -306,8 +306,9 @@ if ($showMarques) {
             <?php endif; ?>
 
             <?php foreach ($produits as $p): ?>
+                
 
-                <div class="produit-card">
+                <div class="produit-card" id="produit-<?= (int)$p['id'] ?>">
 
                     <div class="produit-image-wrap">
 
