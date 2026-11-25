@@ -8,7 +8,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
 
 require '../includes/db.php';
 $id = $_GET['id'];
-
+$retour = !empty($_SESSION['retour_produits'])
+    ? strtok($_SESSION['retour_produits'], '#') . '#produit-' . $id
+    : 'index.php';
 $produit = $conn->prepare("SELECT * FROM produits WHERE id=?");
 $produit->execute([$id]);
 $p = $produit->fetch();
